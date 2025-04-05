@@ -16,6 +16,7 @@ tmux_option_or_fallback() {
 FLOAX_WIDTH=$(envvar_value FLOAX_WIDTH)
 FLOAX_HEIGHT=$(envvar_value FLOAX_HEIGHT)
 FLOAX_BORDER_COLOR=$(envvar_value FLOAX_BORDER_COLOR)
+FLOAX_BORDER_SHAPE="-b rounded"
 FLOAX_BACKGROUND_COLOR=#ff00ff
 FLOAX_TEXT_COLOR=$(envvar_value FLOAX_TEXT_COLOR)
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -103,11 +104,12 @@ pop() {
 
   tmux set-option -t "$FLOAX_SESSION_NAME" detach-on-destroy on
   tmux popup \
-    -S fg="$FLOAX_BORDER_COLOR" \
+    -S fg="$FLOAX_BORDER_COLOR", \
     -s fg="$FLOAX_TEXT_COLOR",bg="$FLOAX_BACKGROUND_COLOR" \
     -T "$FLOAX_TITLE" \
     -w "$FLOAX_WIDTH" \
     -h "$FLOAX_HEIGHT" \
+    "$FLOAX_BORDER_SHAPE" \
     -E \
     "tmux attach-session -t \"$FLOAX_SESSION_NAME\""
 }
