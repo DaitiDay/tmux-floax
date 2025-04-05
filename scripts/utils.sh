@@ -40,10 +40,6 @@ else
   FLOAX_BORDER_STYLE="fg=$FLOAX_BORDER_COLOR"
 fi
 
-# if [ "$FLOAX_TITLE_BG_COLOR" == "" ]; then
-#   FLOAX_TITLE_BG_COLOR=$FLOAX_BACKGROUND_COLOR
-# fi
-
 set_bindings() {
   tmux bind -n C-M-s run "$CURRENT_DIR/zoom-options.sh in"
   tmux bind -n c-M-b run "$CURRENT_DIR/zoom-options.sh out"
@@ -115,7 +111,7 @@ pop() {
     FLOAX_TITLE="$DEFAULT_TITLE"
   fi
 
-  if [ "$FLOAX_TITLE_COLOR" != "" ]; then
+  if [ "$FLOAX_TITLE_FG_COLOR" != "" ]; then
     FLOAX_TITLE_STYLE="#[fg=$FLOAX_TITLE_FG_COLOR,bg=$FLOAX_TITLE_BG_COLOR] $FLOAX_TITLE"
   else
     FLOAX_TITLE_STYLE="$FLOAX_TITLE"
