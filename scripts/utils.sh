@@ -16,8 +16,8 @@ tmux_option_or_fallback() {
 FLOAX_WIDTH=$(envvar_value FLOAX_WIDTH)
 FLOAX_HEIGHT=$(envvar_value FLOAX_HEIGHT)
 FLOAX_BORDER_COLOR=$(envvar_value FLOAX_BORDER_COLOR)
-FLOAX_BORDER_SHAPE="-b rounded"
-FLOAX_BACKGROUND_COLOR=#ff00ff
+FLOAX_BORDER_SHAPE=$(envvar_value FLOAX_BORDER_SHAPE)
+FLOAX_BACKGROUND_COLOR=$(envvar_value FLOAX_BACKGROUND_COLOR)
 FLOAX_TEXT_COLOR=$(envvar_value FLOAX_TEXT_COLOR)
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FLOAX_CHANGE_PATH=$(envvar_value FLOAX_CHANGE_PATH)
@@ -25,6 +25,18 @@ FLOAX_TITLE=$(envvar_value FLOAX_TITLE)
 DEFAULT_TITLE='FloaX: C-M-s 󰘕   C-M-b 󰁌   C-M-f 󰊓   C-M-r 󰑓   C-M-e 󱂬   C-M-d '
 FLOAX_SESSION_NAME=$(envvar_value FLOAX_SESSION_NAME)
 DEFAULT_SESSION_NAME='scratch'
+
+if [ "$FLOAX_BACKGORUND_COLOR" != "" ]; then
+  FLOAX_STYLE="fg=$FLOAX_TEXT_COLOR,bg=$FLOAX_BACKGROUND_COLOR"
+else
+  FLOAX_STYLE="fg=$FLOAX_TEXT_COLOR"
+fi
+
+if [ "$FLOAX_BACKGORUND_COLOR" != "" ]; then
+  FLOAX_BORDER_STYLE="fg=$FLOAX_BORDER_COLOR,bg=$FLOAX_BACKGROUND_COLOR"
+else
+  FLOAX_BORDER_STYLE="fg=$FLOAX_BORDER_COLOR"
+fi
 
 set_bindings() {
   tmux bind -n C-M-s run "$CURRENT_DIR/zoom-options.sh in"
@@ -104,12 +116,12 @@ pop() {
 
   tmux set-option -t "$FLOAX_SESSION_NAME" detach-on-destroy on
   tmux popup \
-    -S fg="$FLOAX_BORDER_COLOR", \
-    -s fg="$FLOAX_TEXT_COLOR",bg="$FLOAX_BACKGROUND_COLOR" \
+    -S "$FLOAX_BORDER_STYLE", \
+    -s "$FLOAX_STYLE" \
     -T "$FLOAX_TITLE" \
     -w "$FLOAX_WIDTH" \
     -h "$FLOAX_HEIGHT" \
-    "$FLOAX_BORDER_SHAPE" \
+    -b "$FLOAX_BORDER_SHAPE" \
     -E \
     "tmux attach-session -t \"$FLOAX_SESSION_NAME\""
 }
