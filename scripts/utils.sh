@@ -19,6 +19,7 @@ FLOAX_BORDER_COLOR=$(envvar_value FLOAX_BORDER_COLOR)
 FLOAX_BORDER_SHAPE=$(envvar_value FLOAX_BORDER_SHAPE)
 FLOAX_BACKGROUND_COLOR=$(envvar_value FLOAX_BACKGROUND_COLOR)
 FLOAX_TEXT_COLOR=$(envvar_value FLOAX_TEXT_COLOR)
+FLOAX_TITLE_COLOR=$(envvar_value FLOAX_TITLE_COLOR)
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FLOAX_CHANGE_PATH=$(envvar_value FLOAX_CHANGE_PATH)
 FLOAX_TITLE=$(envvar_value FLOAX_TITLE)
@@ -109,6 +110,12 @@ pop() {
     FLOAX_TITLE="$DEFAULT_TITLE"
   fi
 
+  if [ "$FLOAX_TITLE_COLOR" != "" ]; then
+    FLOAX_TITLE_STYLE="#[fg=$FLOAX_TITLE_COLOR] $FLOAX_TITLE"
+  else
+    FLOAX_TITLE_STYLE="$FLOAX_TITLE"
+  fi
+
   FLOAX_SESSION_NAME=$(envvar_value FLOAX_SESSION_NAME)
   if [ -z "$FLOAX_SESSION_NAME" ]; then
     FLOAX_SESSION_NAME="$DEFAULT_SESSION_NAME"
@@ -118,7 +125,7 @@ pop() {
   tmux popup \
     -S "$FLOAX_BORDER_STYLE", \
     -s "$FLOAX_STYLE" \
-    -T "$FLOAX_TITLE" \
+    -T "$FLOAX_TITLE_STYLE" \
     -w "$FLOAX_WIDTH" \
     -h "$FLOAX_HEIGHT" \
     -b "$FLOAX_BORDER_SHAPE" \
