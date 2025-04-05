@@ -13,7 +13,7 @@ tmux setenv -g FLOAX_BORDER_SHAPE "$(tmux_option_or_fallback '@floax-border-shap
 
 # Options: black, red, green, yellow, blue, magenta, cyan, white
 tmux setenv -g FLOAX_BORDER_COLOR "$(tmux_option_or_fallback '@floax-border-color' 'magenta')"
-tmux setenv -g FLOAX_BACKGORUND_COLOR "$(tmux_option_or_fallback '@floax-background-color' '')"
+tmux setenv -g FLOAX_BACKGROUND_COLOR "$(tmux_option_or_fallback '@floax-background-color' '')"
 tmux setenv -g FLOAX_TEXT_COLOR "$(tmux_option_or_fallback '@floax-text-color' 'blue')"
 tmux setenv -g FLOAX_TITLE "$(tmux_option_or_fallback '@floax-title' "${DEFAULT_TITLE}")"
 tmux setenv -g FLOAX_CHANGE_PATH "$(tmux_option_or_fallback '@floax-change-path' 'true')"
